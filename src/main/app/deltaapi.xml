@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/apikit" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:spring="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/apikit http://www.mulesoft.org/schema/mule/apikit/current/mule-apikit.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+    
+   
+    <apikit:config name="deltaapi-config" raml="deltaapi.raml" consoleEnabled="false" doc:name="Router"/>
+    <flow name="deltaapi-main">
+        <http:listener config-ref="httpListenerConfig" path="/delta/api/*" doc:name="HTTP"/>
+        <apikit:router config-ref="deltaapi-config" doc:name="APIkit Router"/>
+        <exception-strategy ref="deltaapi-apiKitGlobalExceptionMapping" doc:name="Reference Exception Strategy"/>
+    </flow>
+    <flow name="deltaapi-console">
+        <http:listener config-ref="httpListenerConfig" path="/delta/console/*" doc:name="HTTP"/>
+        <apikit:console config-ref="deltaapi-config" doc:name="APIkit Console"/>
+    </flow>
+    <flow name="get:/deltaFlights:deltaapi-config">
+        <set-payload value="{&#xD;&#xA;    &quot;flights&quot;: [&#xD;&#xA;        {&#xD;&#xA;            &quot;code&quot;: &quot;A1B2C3&quot;,&#xD;&#xA;            &quot;price&quot;: &quot;400.0&quot;,&#xD;&#xA;            &quot;origin&quot;: &quot;MUA&quot;,&#xD;&#xA;            &quot;destination&quot;: &quot;SFO&quot;,&#xD;&#xA;            &quot;planeType&quot;: &quot;Boing 737&quot;,&#xD;&#xA;            &quot;airlineName&quot;: &quot;Delta&quot;&#xD;&#xA;        },&#xD;&#xA;        {&#xD;&#xA;            &quot;code&quot;: &quot;A1B2C4&quot;,&#xD;&#xA;            &quot;price&quot;: &quot;199.99&quot;,&#xD;&#xA;            &quot;origin&quot;: &quot;MUA&quot;,&#xD;&#xA;            &quot;destination&quot;: &quot;LAX&quot;,&#xD;&#xA;            &quot;planeType&quot;: &quot;Boing 737&quot;,&#xD;&#xA;            &quot;airlineName&quot;: &quot;Delta&quot;&#xD;&#xA;        },&#xD;&#xA;        {&#xD;&#xA;            &quot;code&quot;: &quot;A134DS&quot;,&#xD;&#xA;            &quot;price&quot;: &quot;750.0&quot;,&#xD;&#xA;            &quot;origin&quot;: &quot;MUA&quot;,&#xD;&#xA;            &quot;destination&quot;: &quot;LAX&quot;,&#xD;&#xA;            &quot;planeType&quot;: &quot;Boing 777&quot;,&#xD;&#xA;            &quot;airlineName&quot;: &quot;Delta&quot;&#xD;&#xA;        },&#xD;&#xA;        {&#xD;&#xA;            &quot;code&quot;: &quot;A1B34S&quot;,&#xD;&#xA;            &quot;price&quot;: &quot;420.0&quot;,&#xD;&#xA;            &quot;origin&quot;: &quot;MUA&quot;,&#xD;&#xA;            &quot;destination&quot;: &quot;CLE&quot;,&#xD;&#xA;            &quot;planeType&quot;: &quot;Boing 707&quot;,&#xD;&#xA;            &quot;airlineName&quot;: &quot;Delta&quot;&#xD;&#xA;        },&#xD;&#xA;        {&#xD;&#xA;            &quot;code&quot;: &quot;A12342&quot;,&#xD;&#xA;            &quot;price&quot;: &quot;308.0&quot;,&#xD;&#xA;            &quot;origin&quot;: &quot;MUA&quot;,&#xD;&#xA;            &quot;destination&quot;: &quot;CLE&quot;,&#xD;&#xA;            &quot;planeType&quot;: &quot;Boing 727&quot;,&#xD;&#xA;            &quot;airlineName&quot;: &quot;Delta&quot;&#xD;&#xA;        },&#xD;&#xA;        {&#xD;&#xA;            &quot;code&quot;: &quot;A1QWER&quot;,&#xD;&#xA;            &quot;price&quot;: &quot;496.0&quot;,&#xD;&#xA;            &quot;origin&quot;: &quot;MUA&quot;,&#xD;&#xA;            &quot;destination&quot;: &quot;LAX&quot;,&#xD;&#xA;            &quot;planeType&quot;: &quot;Boing 747&quot;,&#xD;&#xA;            &quot;airlineName&quot;: &quot;Delta&quot;&#xD;&#xA;        },&#xD;&#xA;        {&#xD;&#xA;            &quot;code&quot;: &quot;A1ASD4&quot;,&#xD;&#xA;            &quot;price&quot;: &quot;736.0&quot;,&#xD;&#xA;            &quot;origin&quot;: &quot;MUA&quot;,&#xD;&#xA;            &quot;destination&quot;: &quot;CLE&quot;,&#xD;&#xA;            &quot;planeType&quot;: &quot;Boing 757&quot;,&#xD;&#xA;            &quot;airlineName&quot;: &quot;Delta&quot;&#xD;&#xA;        },&#xD;&#xA;        {&#xD;&#xA;            &quot;code&quot;: &quot;A1BTT4&quot;,&#xD;&#xA;            &quot;price&quot;: &quot;593.0&quot;,&#xD;&#xA;            &quot;origin&quot;: &quot;MUA&quot;,&#xD;&#xA;            &quot;destination&quot;: &quot;SFO&quot;,&#xD;&#xA;            &quot;planeType&quot;: &quot;Boing 777&quot;,&#xD;&#xA;            &quot;airlineName&quot;: &quot;Delta&quot;&#xD;&#xA;        },&#xD;&#xA;        {&#xD;&#xA;            &quot;code&quot;: &quot;A14244&quot;,&#xD;&#xA;            &quot;price&quot;: &quot;294.0&quot;,&#xD;&#xA;            &quot;origin&quot;: &quot;MUA&quot;,&#xD;&#xA;            &quot;destination&quot;: &quot;SFO&quot;,&#xD;&#xA;            &quot;planeType&quot;: &quot;Boing 787&quot;,&#xD;&#xA;            &quot;airlineName&quot;: &quot;Delta&quot;&#xD;&#xA;        },&#xD;&#xA;        {&#xD;&#xA;            &quot;code&quot;: &quot;A1FGF4&quot;,&#xD;&#xA;            &quot;price&quot;: &quot;958.0&quot;,&#xD;&#xA;            &quot;origin&quot;: &quot;MUA&quot;,&#xD;&#xA;            &quot;destination&quot;: &quot;PDX&quot;,&#xD;&#xA;            &quot;planeType&quot;: &quot;Boing 777&quot;,&#xD;&#xA;            &quot;airlineName&quot;: &quot;Delta&quot;&#xD;&#xA;        },&#xD;&#xA;        {&#xD;&#xA;            &quot;code&quot;: &quot;AFFFC4&quot;,&#xD;&#xA;            &quot;price&quot;: &quot;283.0&quot;,&#xD;&#xA;            &quot;origin&quot;: &quot;MUA&quot;,&#xD;&#xA;            &quot;destination&quot;: &quot;PDX&quot;,&#xD;&#xA;            &quot;planeType&quot;: &quot;Boing 777&quot;,&#xD;&#xA;            &quot;airlineName&quot;: &quot;Delta&quot;&#xD;&#xA;        },&#xD;&#xA;        {&#xD;&#xA;            &quot;code&quot;: &quot;A1B3D4&quot;,&#xD;&#xA;            &quot;price&quot;: &quot;385.0&quot;,&#xD;&#xA;            &quot;origin&quot;: &quot;MUA&quot;,&#xD;&#xA;            &quot;destination&quot;: &quot;PDX&quot;,&#xD;&#xA;            &quot;planeType&quot;: &quot;Boing 777&quot;,&#xD;&#xA;            &quot;airlineName&quot;: &quot;Delta&quot;&#xD;&#xA;        }&#xD;&#xA;    ]&#xD;&#xA;}" doc:name="Set Payload"/>
+    </flow>
+    <flow name="get:/deltaFlights/{destination}:deltaapi-config">
+        <set-payload value="{&#xD;&#xA;    &quot;flights&quot;: [&#xD;&#xA;        {&#xD;&#xA;            &quot;code&quot;: &quot;A1B2C3&quot;,&#xD;&#xA;            &quot;price&quot;: &quot;400.0&quot;,&#xD;&#xA;            &quot;origin&quot;: &quot;MUA&quot;,&#xD;&#xA;            &quot;destination&quot;: &quot;SFO&quot;,&#xD;&#xA;            &quot;planeType&quot;: &quot;Boing 737&quot;,&#xD;&#xA;            &quot;airlineName&quot;: &quot;Delta&quot;&#xD;&#xA;        },&#xD;&#xA;      &#xD;&#xA;        {&#xD;&#xA;            &quot;code&quot;: &quot;A1BTT4&quot;,&#xD;&#xA;            &quot;price&quot;: &quot;593.0&quot;,&#xD;&#xA;            &quot;origin&quot;: &quot;MUA&quot;,&#xD;&#xA;            &quot;destination&quot;: &quot;SFO&quot;,&#xD;&#xA;            &quot;planeType&quot;: &quot;Boing 777&quot;,&#xD;&#xA;            &quot;airlineName&quot;: &quot;Delta&quot;&#xD;&#xA;        },&#xD;&#xA;        {&#xD;&#xA;            &quot;code&quot;: &quot;A14244&quot;,&#xD;&#xA;            &quot;price&quot;: &quot;294.0&quot;,&#xD;&#xA;            &quot;origin&quot;: &quot;MUA&quot;,&#xD;&#xA;            &quot;destination&quot;: &quot;SFO&quot;,&#xD;&#xA;            &quot;planeType&quot;: &quot;Boing 787&quot;,&#xD;&#xA;            &quot;airlineName&quot;: &quot;Delta&quot;&#xD;&#xA;        }&#xD;&#xA;    ]&#xD;&#xA;}" doc:name="Set Payload"/>
+    </flow>
+    <flow name="post:/deltaFlights:application/json:deltaapi-config">
+        <set-property propertyName="Content-Type" value="application/json" doc:name="Property"/>
+        <set-payload value="{&#xD;&#xA; &#xD;&#xA; &quot;messagae&quot;:&quot;united Flight Added successfully &quot;&#xD;&#xA;  &#xD;&#xA;}" doc:name="Set Payload"/>
+    </flow>
+    <apikit:mapping-exception-strategy name="deltaapi-apiKitGlobalExceptionMapping">
+        <apikit:mapping statusCode="404">
+            <apikit:exception value="org.mule.module.apikit.exception.NotFoundException" />
+            <set-property propertyName="Content-Type" value="application/json" doc:name="Property"/>
+            <set-payload value="{ &quot;message&quot;: &quot;Resource not found&quot; }" doc:name="Set Payload"/>
+        </apikit:mapping>
+        <apikit:mapping statusCode="405">
+            <apikit:exception value="org.mule.module.apikit.exception.MethodNotAllowedException" />
+            <set-property propertyName="Content-Type" value="application/json" doc:name="Property"/>
+            <set-payload value="{ &quot;message&quot;: &quot;Method not allowed&quot; }" doc:name="Set Payload"/>
+        </apikit:mapping>
+        <apikit:mapping statusCode="415">
+            <apikit:exception value="org.mule.module.apikit.exception.UnsupportedMediaTypeException" />
+            <set-property propertyName="Content-Type" value="application/json" doc:name="Property"/>
+            <set-payload value="{ &quot;message&quot;: &quot;Unsupported media type&quot; }" doc:name="Set Payload"/>
+        </apikit:mapping>
+        <apikit:mapping statusCode="406">
+            <apikit:exception value="org.mule.module.apikit.exception.NotAcceptableException" />
+            <set-property propertyName="Content-Type" value="application/json" doc:name="Property"/>
+            <set-payload value="{ &quot;message&quot;: &quot;Not acceptable&quot; }" doc:name="Set Payload"/>
+        </apikit:mapping>
+        <apikit:mapping statusCode="400">
+            <apikit:exception value="org.mule.module.apikit.exception.BadRequestException" />
+            <set-property propertyName="Content-Type" value="application/json" doc:name="Property"/>
+            <set-payload value="{ &quot;message&quot;: &quot;Bad request&quot; }" doc:name="Set Payload"/>
+        </apikit:mapping>
+    </apikit:mapping-exception-strategy>
+</mule>

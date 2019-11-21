@@ -1,0 +1,28 @@
+#%RAML 1.0
+title: deltaapi
+/deltaFlights:
+  get:
+    description: This resouce get all the flights details from dela airlines 
+    responses: 
+      200: 
+        body: 
+          application/json: 
+             example: !include examples/listAllDeltaFlights-get-response.json
+    
+  post:
+     body: 
+      application/json: 
+          schema: !include schemas/addDeltaFlight-post-request-schema.json
+          example: !include examples/addDeltaFlight-post-request.json
+     responses: 
+        201: 
+          body: 
+            application/json:      
+               example: !include examples/addDeltaFlight-post-response.json 
+  /{destination}:
+    get:
+      responses: 
+        200: 
+          body: 
+            application/json:   
+              example: !include examples/deltaFlightsByDestination-get-response.json
